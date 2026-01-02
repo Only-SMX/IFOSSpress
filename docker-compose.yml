@@ -1,6 +1,6 @@
 services:
   wordpress:
-    image: 'wordpress:latest'
+    image: 'wordpress:6.9-php8.1-fpm-alpine'
     volumes:
       - 'wordpress-files:/var/www/html'
     environment:
@@ -38,3 +38,10 @@ services:
       interval: 5s
       timeout: 20s
       retries: 10
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - nginx:/etc/nginx/conf.d
+      - wordpress-files:/var/www/html
+    links:
+      - wordpress
